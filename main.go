@@ -1,11 +1,11 @@
 package main
 
 import (
-	"image/color"
+	"app/spielkarte"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
-//	"fyne.io/fyne/v2/widget"
-	"fyne.io/fyne/v2/canvas"
+	//	"fyne.io/fyne/v2/widget"
 )
 
 func main() {
@@ -13,10 +13,8 @@ func main() {
 	w := a.NewWindow("Rectangle")
 	w.Resize(fyne.NewSize(800, 800))
 
-	
-
-	rect := canvas.NewRectangle(color.Black)
-	w.SetContent(rect)
+	karte := new(spielkarte.KarteImpl)
+	w.SetContent(karte.quadrat)
 
 	//w.SetContent(widget.NewLabel("Hello World!"))
 	w.ShowAndRun()
