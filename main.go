@@ -13,8 +13,8 @@ func main() {
 	w := a.NewWindow("Rectangle")
 	w.Resize(fyne.NewSize(800, 800))
 
-	karte := new(spielkarte.KarteImpl)
-	w.SetContent(karte.quadrat)
+	karte := spielkarte.NewKarte()
+	w.SetContent(karte.GetQuadrat())
 
 	//w.SetContent(widget.NewLabel("Hello World!"))
 	w.ShowAndRun()

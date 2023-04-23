@@ -8,8 +8,8 @@ import (
 )
 
 type Karte interface {
-	// istGeoeffnet() bool
-	// getQuadrat() fyne.CanvasObject
+	istGeoeffnet() bool
+	getQuadrat() fyne.CanvasObject
 }
 
 type KarteImpl struct {
@@ -17,16 +17,18 @@ type KarteImpl struct {
 	quadrat   fyne.CanvasObject
 }
 
-func New() *KarteImpl {
-	var karte *KarteImpl = new(KarteImpl)
-	karte.quadrat = canvas.NewRectangle(color.RGBA{255, 0, 0, 255})
-	return karte
+func NewKarte() KarteImpl {
+
+	return KarteImpl{
+		false,
+		canvas.NewRectangle(color.RGBA{255, 0, 0, 255}),
+	}
 }
 
-// func (karte *KarteImpl) istGeoeffnet() bool {
+// func (karte KarteImpl) istGeoeffnet() bool {
 // 	return karte.geoeffnet
 // }
 
-// func (karte *KarteImpl) getQuadrat() fyne.CanvasObject {
-// 	return karte.quadrat
-// }
+func (karte KarteImpl) GetQuadrat() fyne.CanvasObject {
+	return karte.quadrat
+}
