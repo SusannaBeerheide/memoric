@@ -1,4 +1,4 @@
- /*package main
+/*package main
 
 import (
 	"image/color"
@@ -24,7 +24,7 @@ func main() {
 	myWindow.ShowAndRun()
 }
 */
-package main
+package main2
 
 import (
 	"fyne.io/fyne/v2/app"
@@ -45,5 +45,3 @@ func main() {
 	myWindow.SetContent(grid)
 	myWindow.ShowAndRun()
 }
-
-

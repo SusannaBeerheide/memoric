@@ -1,3 +1,3 @@
 Befehle zum Ausführen:
-`go mod tidy`
+go get
 `go run .`
