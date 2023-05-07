@@ -17,7 +17,10 @@ func main() {
 
 	memorybrett := spielbrett.New()
 
-	grid := container.New(layout.NewGridLayout(4), memorybrett.GetKarten()...)
+	grid := container.New(layout.NewGridLayout(4),
+		memorybrett.GetKarten()...,
+	// karten.NewKarte("Testing again", func() {}),
+	)
 
 	w.SetContent(grid)
 

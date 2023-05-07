@@ -1,9 +1,7 @@
 package spielbrett
 
-import (
-	"fyne.io/fyne/v2"
-)
+import "app/karten"
 
 type Spielbrett interface {
-	GetKarten() []fyne.CanvasObject
+	GetKarten() []*karten.Karte
 }
