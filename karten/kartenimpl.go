@@ -20,14 +20,16 @@ type Karte struct {
 	widget.BaseWidget        // Inherit from BaseWidget
 	text              string // The text to display in the widget
 	offen             bool   // true = offen; false = verdeckt
+	onTapped          func()
 }
 
 //
 // Create a Widget and Extend (initialiase) the BaseWidget
 //
-func NewKarte(text string) fyne.CanvasObject {
+func NewKarte(text string, onTapped func()) fyne.CanvasObject {
 	w := &Karte{ // Create this widget with an initial text value
-		text: text,
+		text:     text,
+		onTapped: onTapped,
 	}
 	w.ExtendBaseWidget(w) // Initialiase the BaseWidget
 	return w

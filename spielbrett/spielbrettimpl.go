@@ -26,3 +26,5 @@ func New() *spielbrett {
 func (sb *spielbrett) GetKarten() []fyne.CanvasObject {
 	return sb.karten
 }
+
+func (sb *spielbrett) 
