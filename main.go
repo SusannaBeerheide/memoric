@@ -1,10 +1,12 @@
 package main
 
 import (
-	"app/spielkarte"
+	"app/spielbrett"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/layout"
 	//	"fyne.io/fyne/v2/widget"
 )
 
@@ -13,15 +15,11 @@ func main() {
 	w := a.NewWindow("Rectangle")
 	w.Resize(fyne.NewSize(800, 800))
 
-	var karten []spielkarte.KarteImpl
+	memorybrett := spielbrett.New()
 
-	for i := 0; i < 12; i++ {
-		karten = append(karten, spielkarte.NewKarte())
-	}
+	grid := container.New(layout.NewGridLayout(4), memorybrett.GetKarten()...)
 
-	karte := spielkarte.NewKarte()
-
-	w.SetContent(karte.GetQuadrat())
+	w.SetContent(grid)
 
 	//w.SetContent(widget.NewLabel("Hello World!"))
 	w.ShowAndRun()
