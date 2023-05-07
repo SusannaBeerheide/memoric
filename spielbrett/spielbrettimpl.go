@@ -8,13 +8,13 @@ import (
 )
 
 type spielbrett struct {
-	karten []*karten.Karte
+	karten []karten.Karte
 }
 
 func New() *spielbrett {
 	var sb *spielbrett
 	sb = new(spielbrett)
-	sb.karten = make([]*karten.Karte, 12)
+	sb.karten = make([]karten.Karte, 12)
 
 	for i := 0; i < 12; i++ {
 		fmt.Println("", i)
@@ -44,7 +44,7 @@ func (sb *spielbrett) KarteAusgewaehlt(kartennr int) {
 	fmt.Println("Kartennummer ist: ", kartennr)
 	ausgewaehlteKarte := sb.karten[kartennr]
 	//fmt.Println("Karten ist offen: ", ausgewaehlteKarte.IstOffen())
-	if ausgewaehlteKarte.Offen {
+	if ausgewaehlteKarte.IstOffen() {
 		ausgewaehlteKarte.Schliessen()
 	} else {
 		ausgewaehlteKarte.Oeffnen()

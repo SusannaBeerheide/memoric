@@ -14,16 +14,16 @@ import (
 // Widget code starts here
 //
 // A text widget with theamed background and foreground
-type Karte struct {
+type data struct {
 	widget.BaseWidget        // Inherit from BaseWidget
 	text              string // The text to display in the widget
-	Offen             bool   // true = offen; false = verdeckt
+	offen             bool   // true = offen; false = verdeckt
 	onTapped          func()
 }
 
 // Create a Widget and Extend (initialiase) the BaseWidget
-func NewKarte(text string, brettFunc func()) *Karte {
-	w := &Karte{ // Create this widget with an initial text value
+func NewKarte(text string, brettFunc func()) *data {
+	w := &data{ // Create this widget with an initial text value
 		text:     text,
 		onTapped: brettFunc,
 	}
@@ -31,29 +31,33 @@ func NewKarte(text string, brettFunc func()) *Karte {
 	return w
 }
 
-func (w *Karte) Tapped(_ *fyne.PointEvent) {
+func (w *data) Tapped(_ *fyne.PointEvent) {
 	w.onTapped()
 }
 
-func (w *Karte) Oeffnen() {
-	w.Offen = true
+func (w *data) IstOffen() bool {
+	return w.offen
+}
+
+func (w *data) Oeffnen() {
+	w.offen = true
 	w.Refresh()
 }
 
-func (w *Karte) Schliessen() {
-	w.Offen = false
+func (w *data) Schliessen() {
+	w.offen = false
 	w.Refresh()
 }
 
 // Create the renderer. This is called by the fyne application
-func (w *Karte) CreateRenderer() fyne.WidgetRenderer {
+func (w *data) CreateRenderer() fyne.WidgetRenderer {
 	// Pass this widget to the renderer so it can access the text field
 	return newKarteRenderer(w)
 }
 
 // Widget Renderer code starts here
 type karteRenderer struct {
-	widget     *Karte            // Reference to the widget holding the current state
+	widget     *data             // Reference to the widget holding the current state
 	background *canvas.Rectangle // A background rectangle
 	text       *canvas.Text      // The text
 }
@@ -62,7 +66,7 @@ type karteRenderer struct {
 // Note: The background and foreground colours are set from the current theme.
 //
 // Do not size or move canvas objects here.
-func newKarteRenderer(Karte *Karte) *karteRenderer {
+func newKarteRenderer(Karte *data) *karteRenderer {
 	return &karteRenderer{
 		widget:     Karte,
 		background: canvas.NewRectangle(color.RGBA{255, 0, 0, 255}),
@@ -78,7 +82,7 @@ func (r *karteRenderer) Refresh() {
 	//	fmt.Println("Refresh ist aufgerufen.")
 	r.text.Text = r.widget.text
 	r.text.Color = theme.ForegroundColor()
-	if r.widget.Offen {
+	if r.widget.offen {
 		r.background.FillColor = color.RGBA{0, 255, 0, 255}
 	} else {
 		r.background.FillColor = color.RGBA{255, 0, 0, 255}
