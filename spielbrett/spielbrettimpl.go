@@ -8,14 +8,12 @@ import (
 )
 
 type spielbrett struct {
-	fynekarten []fyne.CanvasObject
-	karten     []*karten.Karte
+	karten []*karten.Karte
 }
 
 func New() *spielbrett {
 	var sb *spielbrett
 	sb = new(spielbrett)
-	sb.fynekarten = make([]fyne.CanvasObject, 12)
 	sb.karten = make([]*karten.Karte, 12)
 
 	for i := 0; i < 12; i++ {
@@ -27,19 +25,18 @@ func New() *spielbrett {
 			},
 		)
 		sb.karten[i] = k
-		sb.fynekarten[i] = fyne.CanvasObject(k)
 	}
 
 	return sb
 }
 
-func (sb *spielbrett) GetKarten() []fyne.CanvasObject {
+func (sb *spielbrett) GetKartenFuerFyne() []fyne.CanvasObject {
 
-	// karten := make([]karten.Karte, len(sb.karten))
-	// for i, v := range karten {
-	// 	karten[i] = fyne.CanvasObject(v)
-	// }
-	return sb.fynekarten
+	fyneKarten := make([]fyne.CanvasObject, len(sb.karten))
+	for i, v := range sb.karten {
+		fyneKarten[i] = fyne.CanvasObject(v)
+	}
+	return fyneKarten
 }
 
 func (sb *spielbrett) KarteAusgewaehlt(kartennr int) {
