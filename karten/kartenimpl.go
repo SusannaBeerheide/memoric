@@ -84,6 +84,7 @@ func (r *karteRenderer) Refresh() {
 	r.text.Color = theme.ForegroundColor()
 	if r.widget.offen {
 		r.background.FillColor = color.RGBA{0, 255, 0, 255}
+		r.text.Text = ""
 	} else {
 		r.background.FillColor = color.RGBA{255, 0, 0, 255}
 	}
