@@ -1,9 +1,9 @@
 package karten
 
-// Interface siehe Fyne-Dokumentation: developer.fyne.io/extend/coustom-widget
+// Interface siehe Fyne-Dokumentation: developer.fyne.io/extend/custom-widget
 
 // Quelle für die nachfolgende Implementierung der Fyne-Funktionalitäten:
-// ???
+// https://github.com/stuartdd2/developer.fyne.io/blob/master/extend/custom-widget.md
 
 import (
 	"image/color"
@@ -34,7 +34,7 @@ func NewKarte(text string, brettFunc func()) *data {
 	return w
 }
 
-// Methode, die das Anklicken der Karte registriert.
+// Methode, die ausgeführt wird, wenn die Karte geklickt wird.
 func (w *data) Tapped(_ *fyne.PointEvent) {
 	w.onTapped()
 }
