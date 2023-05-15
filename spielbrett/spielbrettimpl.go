@@ -45,17 +45,28 @@ func (sb *spielbrett) KarteAusgewaehlt(kartennr int) {
 	//	var kartenNummerSpeicher []int = make([]int, 0)
 
 	ausgewaehlteKarte := sb.karten[kartennr]
-	//fmt.Println("Karten ist offen: ", ausgewaehlteKarte.IstOffen())
+	//fmt.Println("Karte ist offen: ", ausgewaehlteKarte.IstOffen())
 
-	if !(len(sb.kartenNummerSpeichern(kartennr)) > 2) {
-		if ausgewaehlteKarte.IstOffen() {
-			ausgewaehlteKarte.Schliessen()
-		} else {
-			ausgewaehlteKarte.Oeffnen()
-			//fmt.Println("Karten ist offen: ", ausgewaehlteKarte.IstOffen())
+	if len(sb.kartenNummerSpeichern(kartennr)) == 0 {
+		ausgewaehlteKarte.Oeffnen()
+	} else if len(sb.kartenNummerSpeichern(kartennr)) == 1 {
+		for _, w := range kartenNummerSpeicher {
+			if w != kartennr {
+				ausgewaehlteKarte.Oeffnen()
+			}
 		}
-	} else { // Wenn 3. Karte geklickt wird, dann schließen der ersten zwei Karten.
-		ausgewaehlteKarte.Schliessen()
+
+		// testen, ob bereits geöffnete Karten == angeklickte Karten sind
+		// Falls Karte bereits geöffent wurde passiert nichts
+		// Falls Karte noch nicht geöffnet wurde, wird die angeklickte Karte geöffnet
+		// für später: Testen, ob Paar vorliegt nach öffnen der 2. Karte.
+	} else if len(sb.kartenNummerSpeichern(kartennr)) == 2 {
+		for _, w := range kartenNummerSpeicher { // Alle bereits geöffneten Karten werden geschlossen.
+			zuSchließendeKarte := sb.karten[w]
+			fmt.Println("Kartennummer der zu schließenden Karte lautet", w)
+			zuSchließendeKarte.Schliessen()
+		}
+		ausgewaehlteKarte.Oeffnen() // Angeklickte Karte wird geöffnet.
 	}
 
 }
@@ -67,12 +78,12 @@ func (sb *spielbrett) kartenNummerSpeichern(kartennr int) []int {
 		kartenNummerSpeicher = append(kartenNummerSpeicher, kartennr)
 		fmt.Println("Inhalt vom karteNummerSpeicher lautet", kartenNummerSpeicher)
 	} else {
-		for _, w := range kartenNummerSpeicher {
-			zuSchließendeKarte := sb.karten[w]
-			fmt.Println("Kartennummer der zu schließenden Karte lautet", w)
-			zuSchließendeKarte.Schliessen()
-		}
-
+		/*	for _, w := range kartenNummerSpeicher {
+				zuSchließendeKarte := sb.karten[w]
+				fmt.Println("Kartennummer der zu schließenden Karte lautet", w)
+				zuSchließendeKarte.Schliessen()
+			}
+		*/
 		kartenNummerSpeicher = nil
 		kartenNummerSpeicher = append(kartenNummerSpeicher, kartennr)
 		fmt.Println("Inhalt vom karteNummerSpeicher lautet", kartenNummerSpeicher, "die Länge ist", len(kartenNummerSpeicher))
