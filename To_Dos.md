@@ -1,5 +1,8 @@
 To Dos:
 
+Markus fragen:
+- Quelle für Fyne-Funktionalitäten in kartenimpl.go
+
 spielbrettimpl.go 
 - Funk KarteAusgewählt: eigene Funktion für Karteschließen schreiben bei der man durch ein Slice geht und alle offenen Kartne schließt
 

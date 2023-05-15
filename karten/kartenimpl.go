@@ -2,6 +2,9 @@ package karten
 
 // Interface siehe Fyne-Dokumentation: developer.fyne.io/extend/coustom-widget
 
+// Quelle für die nachfolgende Implementierung der Fyne-Funktionalitäten:
+// ???
+
 import (
 	"image/color"
 
@@ -24,26 +27,30 @@ type data struct {
 // Create a Widget and Extend (initialiase) the BaseWidget
 func NewKarte(text string, brettFunc func()) *data {
 	w := &data{ // Create this widget with an initial text value
-		text:     text,
-		onTapped: brettFunc,
+		text:     text,      // Text auf der Vorderseite der Spielkarte
+		onTapped: brettFunc, // Aufruf der Funktion brettFunc, wenn die Karte angeklickt wird.
 	}
 	w.ExtendBaseWidget(w) // Initialiase the BaseWidget
 	return w
 }
 
+// Methode, die das Anklicken der Karte registriert.
 func (w *data) Tapped(_ *fyne.PointEvent) {
 	w.onTapped()
 }
 
+// Methode, welche zurückgibt, ob die Karte geöffnet oder geschlossen ist.
 func (w *data) IstOffen() bool {
 	return w.offen
 }
 
+// Methode zum Öffnen der Karte.
 func (w *data) Oeffnen() {
 	w.offen = true
-	w.Refresh()
+	w.Refresh() // Karte wird "refreshed"
 }
 
+// Methode zum Schliessen der Karte.
 func (w *data) Schliessen() {
 	w.offen = false
 	w.Refresh()
@@ -78,15 +85,15 @@ func newKarteRenderer(Karte *data) *karteRenderer {
 // theme is changed
 //
 // Note: The background and foreground colours are set from the current theme
-func (r *karteRenderer) Refresh() {
+func (r *karteRenderer) Refresh() { // Funktion, welche die Funktionalitäten der Karte aktualisieren.
 	//	fmt.Println("Refresh ist aufgerufen.")
-	r.text.Text = r.widget.text
-	r.text.Color = theme.ForegroundColor()
-	if r.widget.offen {
-		r.background.FillColor = color.RGBA{0, 255, 0, 255}
-		r.text.Text = ""
+	r.text.Text = r.widget.text            // Reicht den Text in die Fyne-Logik rüber.
+	r.text.Color = theme.ForegroundColor() // Reicht die Textfarbe in die Fyne-Logik rüber.
+	if r.widget.offen {                    // Wenn die Karte offen ist:
+		r.background.FillColor = color.RGBA{0, 255, 0, 255} // Farbe setzen
+		r.text.Text = ""                                    // Inhalt der Karte
 	} else {
-		r.background.FillColor = color.RGBA{255, 0, 0, 255}
+		r.background.FillColor = color.RGBA{255, 0, 0, 255} // Farbe der geschlossenen Karte
 	}
 	r.background.Refresh() // Redraw the background first
 	r.text.Refresh()       // Redraw the text on top
