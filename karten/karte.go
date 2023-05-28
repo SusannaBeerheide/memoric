@@ -12,4 +12,8 @@ type Karte interface {
 	Oeffnen()
 
 	Schliessen()
+
+	Verschwinden()
+
+	Inhalt() string // Gibt Inhalt der Karte zurück.
 }

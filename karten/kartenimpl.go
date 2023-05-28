@@ -22,6 +22,7 @@ type data struct {
 	text              string // The text to display in the widget
 	offen             bool   // true = offen; false = verdeckt
 	onTapped          func()
+	weg               bool // Karte ist verschwunden, d.h. sie wird nicht mehr angezeigt.
 }
 
 // Create a Widget and Extend (initialiase) the BaseWidget
@@ -46,6 +47,9 @@ func (w *data) IstOffen() bool {
 
 // Methode zum Öffnen der Karte.
 func (w *data) Oeffnen() {
+	if w.weg {
+		return
+	}
 	w.offen = true
 	w.Refresh() // Karte wird "refreshed"
 }
@@ -54,6 +58,16 @@ func (w *data) Oeffnen() {
 func (w *data) Schliessen() {
 	w.offen = false
 	w.Refresh()
+}
+
+func (w *data) Verschwinden() {
+	w.weg = true
+	w.offen = false
+	w.Refresh()
+}
+
+func (w *data) Inhalt() string {
+	return w.text
 }
 
 // Create the renderer. This is called by the fyne application
@@ -73,11 +87,13 @@ type karteRenderer struct {
 // Note: The background and foreground colours are set from the current theme.
 //
 // Do not size or move canvas objects here.
+
+// Die Karte, die beim ersten Anzeigen wird also die Vorderseite.
 func newKarteRenderer(Karte *data) *karteRenderer {
 	return &karteRenderer{
 		widget:     Karte,
 		background: canvas.NewRectangle(color.RGBA{255, 0, 0, 255}),
-		text:       canvas.NewText(Karte.text, theme.ForegroundColor()),
+		text:       canvas.NewText("memoric", theme.ForegroundColor()),
 	}
 }
 
@@ -87,13 +103,16 @@ func newKarteRenderer(Karte *data) *karteRenderer {
 // Note: The background and foreground colours are set from the current theme
 func (r *karteRenderer) Refresh() { // Funktion, welche die Funktionalitäten der Karte aktualisieren.
 	//	fmt.Println("Refresh ist aufgerufen.")
-	r.text.Text = r.widget.text            // Reicht den Text in die Fyne-Logik rüber.
 	r.text.Color = theme.ForegroundColor() // Reicht die Textfarbe in die Fyne-Logik rüber.
-	if r.widget.offen {                    // Wenn die Karte offen ist:
+	if r.widget.weg {
+		r.background.FillColor = color.Transparent
+		r.text.Text = ""
+	} else if r.widget.offen { // Wenn die Karte offen ist:
 		r.background.FillColor = color.RGBA{0, 255, 0, 255} // Farbe setzen
-		r.text.Text = ""                                    // Inhalt der Karte
+		r.text.Text = r.widget.text                         // Inhalt der Karte
 	} else {
 		r.background.FillColor = color.RGBA{255, 0, 0, 255} // Farbe der geschlossenen Karte
+		r.text.Text = "memoric"                             // Reicht den Text in die Fyne-Logik rüber.
 	}
 	r.background.Refresh() // Redraw the background first
 	r.text.Refresh()       // Redraw the text on top
