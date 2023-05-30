@@ -11,6 +11,8 @@ type Karte interface {
 
 	Oeffnen()
 
+	MusikStoppen()
+
 	Schliessen()
 
 	Verschwinden()

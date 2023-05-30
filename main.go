@@ -1,12 +1,10 @@
 package main
 
 import (
-	"app/spielbrett"
+	"app/spieltisch"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
-	"fyne.io/fyne/v2/container"
-	"fyne.io/fyne/v2/layout"
 	//	"fyne.io/fyne/v2/widget"
 )
 
@@ -15,14 +13,9 @@ func main() {
 	w := a.NewWindow("memoric")
 	w.Resize(fyne.NewSize(800, 800))
 
-	memorybrett := spielbrett.New()
+	spieltisch := spieltisch.New()
 
-	grid := container.New(layout.NewGridLayout(4),
-		memorybrett.GetKartenFuerFyne()...,
-	// karten.NewKarte("Testing again", func() {}),
-	)
-
-	w.SetContent(grid)
+	w.SetContent(spieltisch.GetFyneTisch())
 
 	//w.SetContent(widget.NewLabel("Hello World!"))
 	w.ShowAndRun()

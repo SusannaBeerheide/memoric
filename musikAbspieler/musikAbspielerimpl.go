@@ -18,6 +18,7 @@ type data struct {
 func New(pfad string) *data {
 	var m *data
 	m = new(data)
+	fmt.Println("Das ist der Pfad:", pfad)
 	m.musik = pfad
 	return m
 }
@@ -29,15 +30,22 @@ func (m *data) Spielen() {
 	}
 
 	streamer, format, err := mp3.Decode(f)
+
+	fmt.Println("Format", format)
+	fmt.Println(format.SampleRate.N(time.Second / 10))
 	if err != nil {
 		fmt.Println("Fataler Fehler: Fehler beim Decodieren der Musikdatei")
 	}
 
-	speaker.Init(format.SampleRate, format.SampleRate.N(time.Second/10))
+	m.streamer = streamer
 
-	speaker.Play(streamer)
+	fmt.Println("Speaker wird initiliziert")
+
+	fmt.Println("ERFOLG! Speaker wurde initiliziert")
+
+	speaker.Play(m.streamer)
 }
 
 func (m *data) Stoppen() {
-
+	speaker.Clear()
 }

@@ -2,29 +2,39 @@ package spielbrett
 
 import (
 	"app/karten"
+	"app/score"
 	"fmt"
 	"math/rand"
 	"os"
 	"time"
 
 	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/layout"
+	"github.com/faiface/beep/speaker"
 )
 
 type spielbrett struct {
 	karten []karten.Karte
+	score  score.Score
 }
 
-func New() *spielbrett {
+func New(score score.Score) *spielbrett {
+
+	speaker.Init(44100, 4410) // Initialisierung des Abspielers, auf die Resource Lautsprecher wird zugegriffen.
+	// 44100 - Rate-Sampel-Format, 4410 - Standardrate für MP3
+
 	var sb *spielbrett
 	sb = new(spielbrett)
 	sb.karten = make([]karten.Karte, 12)
+	sb.score = score
 
 	inhaltDerKarten := beliebigerInhalt()
 
 	for i := 0; i < 12; i++ {
 		fmt.Println("", i)
 		index := i
-		k := karten.NewKarte(inhaltDerKarten[i],
+		k := karten.NewKarte("./AudiofilesMemoric/"+inhaltDerKarten[i],
 			func() {
 				sb.KarteAusgewaehlt(index)
 			},
@@ -74,13 +84,13 @@ func beliebigerInhalt() []string {
 	return verdoppelung
 }
 
-func (sb *spielbrett) GetKartenFuerFyne() []fyne.CanvasObject {
+func (sb *spielbrett) GetBrett() fyne.CanvasObject {
 
 	fyneKarten := make([]fyne.CanvasObject, len(sb.karten))
 	for i, v := range sb.karten {
 		fyneKarten[i] = fyne.CanvasObject(v)
 	}
-	return fyneKarten
+	return container.New(layout.NewGridLayout(4), fyneKarten...)
 }
 
 func (sb *spielbrett) offeneKarten() int {
@@ -104,6 +114,7 @@ func (sb *spielbrett) alleKartenSchliessen() {
 func (sb *spielbrett) KarteAusgewaehlt(kartennr int) {
 	fmt.Println("Karte wurde ausgewählt")
 	fmt.Println("Kartennummer ist: ", kartennr)
+	sb.musikStoppen()
 
 	ausgewaehlteKarte := sb.karten[kartennr]
 
@@ -115,9 +126,13 @@ func (sb *spielbrett) KarteAusgewaehlt(kartennr int) {
 		ausgewaehlteKarte.Oeffnen()
 	} else {
 		if sb.offeneKartenGleich() {
+			sb.score.PaarGefunden()
 			sb.offeneKartenVerschwinden()
+		} else {
+			sb.score.SpielerWechseln()
 		}
 		sb.alleKartenSchliessen()
+
 	}
 
 }
@@ -149,5 +164,12 @@ func (sb *spielbrett) offeneKartenVerschwinden() {
 		if v.IstOffen() {
 			v.Verschwinden()
 		}
+	}
+}
+
+func (sb *spielbrett) musikStoppen() {
+
+	for _, v := range sb.karten {
+		v.MusikStoppen()
 	}
 }

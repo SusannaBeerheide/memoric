@@ -6,6 +6,7 @@ package karten
 // https://github.com/stuartdd2/developer.fyne.io/blob/master/extend/custom-widget.md
 
 import (
+	"fmt"
 	"image/color"
 
 	"app/musikAbspieler"
@@ -51,19 +52,26 @@ func (w *data) IstOffen() bool {
 
 // Methode zum Öffnen der Karte.
 func (w *data) Oeffnen() {
-	if w.weg {
+	if w.weg || w.offen {
 		return
 	}
 	w.offen = true
+	fmt.Println("Karten wird geoeffnet")
+	w.musikAbspieler.Spielen()
+	fmt.Println("Musik wurde abegespielt")
 	w.Refresh() // Karte wird "refreshed"
 }
 
 // Methode zum Schliessen der Karte.
 func (w *data) Schliessen() {
 	w.offen = false
+	w.musikAbspieler.Stoppen()
 	w.Refresh()
 }
 
+func (w *data) MusikStoppen() {
+	w.musikAbspieler.Stoppen()
+}
 func (w *data) Verschwinden() {
 	w.weg = true
 	w.offen = false
@@ -113,7 +121,7 @@ func (r *karteRenderer) Refresh() { // Funktion, welche die Funktionalitäten de
 		r.text.Text = ""
 	} else if r.widget.offen { // Wenn die Karte offen ist:
 		r.background.FillColor = color.RGBA{135, 206, 235, 255} // Farbe setzen
-		r.text.Text = r.widget.text                             // Inhalt der Karte
+		r.text.Text = ""                                        // Inhalt der Karte
 	} else {
 		r.background.FillColor = color.RGBA{250, 128, 114, 255} // Farbe der geschlossenen Karte
 		r.text.Text = "memoric"                                 // Reicht den Text in die Fyne-Logik rüber.
