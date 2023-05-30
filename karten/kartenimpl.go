@@ -8,6 +8,8 @@ package karten
 import (
 	"image/color"
 
+	"app/musikAbspieler"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/theme"
@@ -22,14 +24,16 @@ type data struct {
 	text              string // The text to display in the widget
 	offen             bool   // true = offen; false = verdeckt
 	onTapped          func()
-	weg               bool // Karte ist verschwunden, d.h. sie wird nicht mehr angezeigt.
+	weg               bool                          // Karte ist verschwunden, d.h. sie wird nicht mehr angezeigt.
+	musikAbspieler    musikAbspieler.MusikAbspieler //Importierte Klasse zum Abspielen der Musik
 }
 
 // Create a Widget and Extend (initialiase) the BaseWidget
 func NewKarte(text string, brettFunc func()) *data {
 	w := &data{ // Create this widget with an initial text value
-		text:     text,      // Text auf der Vorderseite der Spielkarte
-		onTapped: brettFunc, // Aufruf der Funktion brettFunc, wenn die Karte angeklickt wird.
+		text:           text,      // Text auf der Vorderseite der Spielkarte
+		onTapped:       brettFunc, // Aufruf der Funktion brettFunc, wenn die Karte angeklickt wird.
+		musikAbspieler: musikAbspieler.New(text),
 	}
 	w.ExtendBaseWidget(w) // Initialiase the BaseWidget
 	return w
