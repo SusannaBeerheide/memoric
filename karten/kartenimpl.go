@@ -92,7 +92,7 @@ type karteRenderer struct {
 func newKarteRenderer(Karte *data) *karteRenderer {
 	return &karteRenderer{
 		widget:     Karte,
-		background: canvas.NewRectangle(color.RGBA{255, 0, 0, 255}),
+		background: canvas.NewRectangle(color.RGBA{250, 128, 114, 255}),
 		text:       canvas.NewText("memoric", theme.ForegroundColor()),
 	}
 }
@@ -108,11 +108,11 @@ func (r *karteRenderer) Refresh() { // Funktion, welche die Funktionalitäten de
 		r.background.FillColor = color.Transparent
 		r.text.Text = ""
 	} else if r.widget.offen { // Wenn die Karte offen ist:
-		r.background.FillColor = color.RGBA{0, 255, 0, 255} // Farbe setzen
-		r.text.Text = r.widget.text                         // Inhalt der Karte
+		r.background.FillColor = color.RGBA{135, 206, 235, 255} // Farbe setzen
+		r.text.Text = r.widget.text                             // Inhalt der Karte
 	} else {
-		r.background.FillColor = color.RGBA{255, 0, 0, 255} // Farbe der geschlossenen Karte
-		r.text.Text = "memoric"                             // Reicht den Text in die Fyne-Logik rüber.
+		r.background.FillColor = color.RGBA{250, 128, 114, 255} // Farbe der geschlossenen Karte
+		r.text.Text = "memoric"                                 // Reicht den Text in die Fyne-Logik rüber.
 	}
 	r.background.Refresh() // Redraw the background first
 	r.text.Refresh()       // Redraw the text on top

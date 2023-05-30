@@ -12,7 +12,7 @@ import (
 
 func main() {
 	a := app.New()
-	w := a.NewWindow("Rectangle")
+	w := a.NewWindow("memoric")
 	w.Resize(fyne.NewSize(800, 800))
 
 	memorybrett := spielbrett.New()

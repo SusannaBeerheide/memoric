@@ -4,6 +4,7 @@ import (
 	"app/karten"
 	"fmt"
 	"math/rand"
+	"os"
 	"time"
 
 	"fyne.io/fyne/v2"
@@ -34,17 +35,28 @@ func New() *spielbrett {
 	return sb
 }
 
-// In der nachfolgenden Funktion wird ein Slice aus Strings mit 6 Buchstaben
-// gefüllt. Der Inhalt wird verdoppelt und im Anschluss zufällig
-// angeordnet
+// In der nachfolgenden Funktion wird ein Slice aus Strings mit 6
+// Buchstaben/ Audiodateien gefüllt. Der Inhalt wird verdoppelt
+// und im Anschluss zufällig angeordnet
 
 func beliebigerInhalt() []string {
-	buchstaben := [6]string{"A", "B", "C", "D", "E", "F"}
+
+	// Namen der Autodateien werden ausgelesen und in files gespeichert.
+	files, err := os.ReadDir("./AudiofilesMemoric")
+	if err != nil {
+		fmt.Println("Fataler Fehler!")
+	}
+
+	for _, file := range files {
+		fmt.Println(file.Name())
+	}
+
+	//	buchstaben := [6]string{"A", "B", "C", "D", "E", "F"}
 
 	var verdoppelung []string
 
-	for _, wert := range buchstaben {
-		verdoppelung = append(verdoppelung, wert, wert)
+	for _, wert := range files {
+		verdoppelung = append(verdoppelung, wert.Name(), wert.Name())
 	}
 
 	fmt.Println("Das ist das aktuelle Feld:", verdoppelung)
