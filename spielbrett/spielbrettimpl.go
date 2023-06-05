@@ -137,7 +137,7 @@ func (sb *spielbrett) KarteAusgewaehlt(kartennr int) {
 
 }
 
-// Funktion testet, ob die alle - hier zwei - geöffneten Karten gleichen Inhalt haben.
+// Funktion testet, ob alle - hier zwei - geöffneten Karten gleichen Inhalt haben.
 func (sb *spielbrett) offeneKartenGleich() bool {
 
 	var ersterInhalt string
