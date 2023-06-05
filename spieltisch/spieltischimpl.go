@@ -36,8 +36,8 @@ func (t *data) GetFyneTisch() fyne.CanvasObject {
 }
 
 func (t *data) anzeigetafel() fyne.CanvasObject {
-	score1 := widget.NewLabel("Spieler 1:")
-	score2 := widget.NewLabel("Spieler 2:")
+	score1 := widget.NewLabel("Spieler 1")
+	score2 := widget.NewLabel("Spieler 2")
 	score3 := widget.NewLabelWithData(t.scoreSpiel.Spieler1())
 	score4 := widget.NewLabelWithData(t.scoreSpiel.Spieler2())
 	//	score5 := widget.NewLabelWithData(t.)

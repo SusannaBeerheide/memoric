@@ -17,8 +17,6 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-// Widget code starts here
-//
 // A text widget with theamed background and foreground
 type data struct {
 	widget.BaseWidget        // Inherit from BaseWidget
@@ -29,10 +27,9 @@ type data struct {
 	musikAbspieler    musikAbspieler.MusikAbspieler //Importierte Klasse zum Abspielen der Musik
 }
 
-// Create a Widget and Extend (initialiase) the BaseWidget
-func NewKarte(text string, brettFunc func()) *data {
+func NewKarte(text string, brettFunc func()) *data { // Create a Widget and Extend (initialiase) the BaseWidget
 	w := &data{ // Create this widget with an initial text value
-		text:           text,      // Text auf der Vorderseite der Spielkarte
+		text:           text,      // Text, z.B. auf der Rückseite der Spielkarte "memoric"
 		onTapped:       brettFunc, // Aufruf der Funktion brettFunc, wenn die Karte angeklickt wird.
 		musikAbspieler: musikAbspieler.New(text),
 	}
@@ -40,30 +37,26 @@ func NewKarte(text string, brettFunc func()) *data {
 	return w
 }
 
-// Methode, die ausgeführt wird, wenn die Karte geklickt wird.
-func (w *data) Tapped(_ *fyne.PointEvent) {
+func (w *data) Tapped(_ *fyne.PointEvent) { // Methode, die ausgeführt wird, wenn die Karte geklickt wird.
 	w.onTapped()
 }
 
-// Methode, welche zurückgibt, ob die Karte geöffnet oder geschlossen ist.
-func (w *data) IstOffen() bool {
+func (w *data) IstOffen() bool { // Methode, die zurückgibt, ob die Karte geöffnet oder geschlossen ist.
 	return w.offen
 }
 
-// Methode zum Öffnen der Karte.
-func (w *data) Oeffnen() {
+func (w *data) Oeffnen() { // Methode zum Öffnen der Karte.
 	if w.weg || w.offen {
 		return
 	}
-	w.offen = true
+	w.offen = true // Karte wird geöffnet
 	fmt.Println("Karten wird geoeffnet")
-	w.musikAbspieler.Spielen()
+	w.musikAbspieler.Spielen() //Musik wird abgespielt
 	fmt.Println("Musik wurde abegespielt")
 	w.Refresh() // Karte wird "refreshed"
 }
 
-// Methode zum Schliessen der Karte.
-func (w *data) Schliessen() {
+func (w *data) Schliessen() { // Methode zum Schliessen der Karte.
 	w.offen = false
 	w.musikAbspieler.Stoppen()
 	w.Refresh()
@@ -81,6 +74,8 @@ func (w *data) Verschwinden() {
 func (w *data) Inhalt() string {
 	return w.text
 }
+
+//Hier folgen nun Fyne spezifische Funktionalitäten (Quelle s.o. Zeile 6)
 
 // Create the renderer. This is called by the fyne application
 func (w *data) CreateRenderer() fyne.WidgetRenderer {
@@ -100,7 +95,7 @@ type karteRenderer struct {
 //
 // Do not size or move canvas objects here.
 
-// Die Karte, die beim ersten Anzeigen wird also die Vorderseite.
+// Die Karte, die beim ersten Anzeigen angezeigt wird, also die rote Rückseite der Spielkarte.
 func newKarteRenderer(Karte *data) *karteRenderer {
 	return &karteRenderer{
 		widget:     Karte,
