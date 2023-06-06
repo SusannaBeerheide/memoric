@@ -14,9 +14,9 @@ import (
 	"github.com/faiface/beep/speaker"
 )
 
-type spielbrett struct {
-	karten []karten.Karte
-	score  score.Score
+type spielbrett struct { // Das Spielbrett besteht aus:
+	karten []karten.Karte // den Karten
+	score  score.Score    // den Spielstand
 }
 
 func New(score score.Score) *spielbrett {

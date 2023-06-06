@@ -10,17 +10,16 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-type data struct {
-	spielbrett spielbrett.Spielbrett
-	scoreSpiel score.Score
-	//	aktuellerSpieler score.Score
+type data struct { // Der Spieltisch besteht aus
+	spielbrett spielbrett.Spielbrett // dem Spielbrett
+	scoreSpiel score.Score           // den Spielstand
 }
 
 func New() *data {
 	var tisch *data
 	tisch = new(data)
 
-	spielstand := score.New()
+	spielstand := score.New() // Der Spielstand wird
 
 	tisch.scoreSpiel = spielstand
 
@@ -29,6 +28,7 @@ func New() *data {
 	return tisch
 }
 
+// Die Methode zeigt den Spieltisch an:
 func (t *data) GetFyneTisch() fyne.CanvasObject {
 	// Die Anzeige mit den Spielständen wird in top gespeichert:
 	top := t.anzeigetafel()
@@ -36,14 +36,13 @@ func (t *data) GetFyneTisch() fyne.CanvasObject {
 	return container.NewBorder(top, nil, nil, nil, t.spielbrett.GetBrett())
 }
 
+// Die Funktion zeigt den aktuellen Spielstand auf dem Spieltisch an:
 func (t *data) anzeigetafel() fyne.CanvasObject {
 	// In scoreX wird der Inhalt der Anzeige gespeichert:
 	score1 := widget.NewLabel("Spieler 1")
 	score2 := widget.NewLabel("Spieler 2")
 	score3 := widget.NewLabelWithData(t.scoreSpiel.Spieler1())
 	score4 := widget.NewLabelWithData(t.scoreSpiel.Spieler2())
-	//	score5 := widget.NewLabelWithData(t.)
-
 	// Angabe, wie die Anzeige der Inhalte erfolgen soll:
-	return container.New(layout.NewGridLayout(2), score1, score2, score3, score4 /*, score5*/)
+	return container.New(layout.NewGridLayout(2), score1, score2, score3, score4)
 }
