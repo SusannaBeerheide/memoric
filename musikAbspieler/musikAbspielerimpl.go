@@ -24,28 +24,35 @@ func New(pfad string) *data {
 }
 
 func (m *data) Spielen() {
+	// Auslesen des Musikpfades:
 	f, err := os.Open(m.musik)
+	// Fehlerabfangen, falls der Musikpfad fehlerhaft ist.
 	if err != nil {
 		fmt.Println("Fataler Fehler: Musikpfad nicht gefunden")
 	}
 
+	// Decodierung der MP3-Datei:
 	streamer, format, err := mp3.Decode(f)
 
 	fmt.Println("Format", format)
+	// Festlegung der Samplerate:
 	fmt.Println(format.SampleRate.N(time.Second / 10))
 	if err != nil {
 		fmt.Println("Fataler Fehler: Fehler beim Decodieren der Musikdatei")
 	}
 
+	// Initialisierung des "Lautsprechers"
 	m.streamer = streamer
 
 	fmt.Println("Speaker wird initiliziert")
 
 	fmt.Println("ERFOLG! Speaker wurde initiliziert")
 
+	// Musik wird auf dem initialisierten Lautsprecher abgespielt:
 	speaker.Play(m.streamer)
 }
 
 func (m *data) Stoppen() {
+	// Der "Lautsprecher" wird gesäubert/ gelöscht:
 	speaker.Clear()
 }
