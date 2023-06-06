@@ -1,10 +1,8 @@
 package musikAbspieler
 
-//import
-
 // Vor.: Übergabe des Pfad der Musikdatei.
-// Erg.: Eine neue Instanz des ADT Musikabspieler ist gegeben.
-// func New(pfad string) *data // *data erfüllt das Interface Schloss
+// Erg.: Eine neue Instanz des ADT Musikabspieler ist geliefert.
+// func New(pfad string) *data // *data erfüllt das Interface musikAbspieler
 
 type MusikAbspieler interface {
 	// Vor.: keine

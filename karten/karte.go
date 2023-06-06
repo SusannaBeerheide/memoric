@@ -2,6 +2,10 @@ package karten
 
 import "fyne.io/fyne/v2"
 
+// Vor.:
+// Erg.: Eine neue Instanz des ADT Karte ist geliefert.
+// func NewKarte(text string, brettFunc func()) *data // // *data erfüllt das Interface karte
+
 type Karte interface {
 	fyne.CanvasObject
 
