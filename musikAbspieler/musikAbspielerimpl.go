@@ -10,7 +10,7 @@ import (
 	"github.com/faiface/beep/speaker"
 )
 
-type data struct {
+type data struct { // Der Musikabspiler besteht aus:
 	musik    string        //Pfad zur Musikdatei
 	streamer beep.Streamer //Gelesene/gestreamte Musikdatei
 }
@@ -19,7 +19,7 @@ func New(pfad string) *data {
 	var m *data
 	m = new(data)
 	fmt.Println("Das ist der Pfad:", pfad)
-	m.musik = pfad
+	m.musik = pfad // Übergabe des mitgegebenen Pfad an den Struct musikAbspieler.
 	return m
 }
 
