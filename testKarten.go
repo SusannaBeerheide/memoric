@@ -1,11 +1,11 @@
 package main
 
 import (
+	"app/karten"
+	"fmt"
 
-	hier müsste noch das Paket Karten import werden
-
-	"fyne.io/fyne"
-	"fyne.io/fyne/app"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/app"
 )
 
 func main() {
@@ -18,13 +18,12 @@ func main() {
 	// Anlegen der Variable für den Spieltisch und füllen mit dem neu erschaffenen ADO Spieltisch
 	karte := karten.NewKarte("kein Pfad",
 		func() {
-			???
-		}
+			fmt.Println("Yo")
+		},
 	)
 
 	// Der Spieltich wird als Fensterinhalt gesetzt.
-	w.SetContent(karten. ??? )
-
+	w.SetContent(karte)
 
 	// Das Fenster wird angezeigt und dessen Inhalte laufen.
 	w.ShowAndRun()
