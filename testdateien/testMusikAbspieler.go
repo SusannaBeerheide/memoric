@@ -1,5 +1,19 @@
 package main
 
+import (
+	"app/musikAbspieler"
+	"fmt"
+	"time"
+
+	"github.com/faiface/beep/speaker"
+)
+
 func main() {
-	// Hier müssen Codezeilen stehen, die den Musikabspieler testen.
+	speaker.Init(44100, 4410)
+	musik := musikAbspieler.New("../AudiofilesMemoric/Vogelhaus.mp3")
+	time.Sleep(100)
+	musik.Spielen()
+
+	fmt.Println("Jetzt spielt die Musik")
+
 }
