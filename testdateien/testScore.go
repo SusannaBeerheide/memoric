@@ -1,5 +1,15 @@
 package main
 
+import (
+	"app/score"
+	"fmt"
+)
+
 func main() {
-	// Hier müssen Codezeilen stehen, die den Score testen.
+
+	scoreX := score.New()
+
+	// Gibt im Terminal den aktuellen Struct für Score aus.
+	fmt.Println(scoreX)
+
 }
