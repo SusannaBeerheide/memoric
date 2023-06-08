@@ -2,11 +2,12 @@ package karten
 
 import "fyne.io/fyne/v2"
 
-// Vor.:
+// Vor.: Es existiert ein Score,welcher als Text
 // Erg.: Eine neue Instanz des ADT Karte ist geliefert.
 // func NewKarte(text string, brettFunc func()) *data // // *data erfüllt das Interface karte
 
 type Karte interface {
+	// siehe Dokumentation im Fyne-Paket
 	fyne.CanvasObject
 
 	//Vor.: Eine Karte wurde  gerade angeklickt.
@@ -23,8 +24,7 @@ type Karte interface {
 	IstOffen() bool
 
 	//Vor.: Die Karte wurde angeklickt.
-	//Eff.: Die hinterlegte Musik wird abgespielt und die Refresh-Funktion wird ausgeführt (deren Eff. hier: Kartenfarbe blau).
-	//Erg.: w.offen ist true.
+	//Eff.: w.offen ist true. Die hinterlegte Musik wird abgespielt und die Refresh-Funktion wird ausgeführt (deren Eff. hier: Kartenfarbe blau).
 	Oeffnen()
 
 	//Vor.: Eine geöffnete Karte lag vor.
@@ -32,16 +32,14 @@ type Karte interface {
 	MusikStoppen()
 
 	//Vor.: w.offen war true.
-	//Eff.: Die Musik wird gestoppt und die Refresh-Funktion wird ausgeführt (deren Eff. hier: Kartenfarbe wieder rot).
-	//Erg.: w.offen ist false.
+	//Eff.: w.offen ist false. Die Musik wird gestoppt und die Refresh-Funktion wird ausgeführt (deren Eff. hier: Kartenfarbe wieder rot).
 	Schliessen()
 
 	//Vor.: w.offen war true.
-	//Eff.: Die Refresh-Funktion wird ausgeführt (deren Eff. hier: Kartenfarbe transparent).
-	//Erg.: w.weg ist true und w.offen ist false.
+	//Eff.: w.weg ist true und w.offen ist false. Die Refresh-Funktion wird ausgeführt (deren Eff. hier: Kartenfarbe transparent).
 	Verschwinden()
 
 	//Vor.: Keine.
-	//Erg.: Gibt den Text der Spielkarte zurück, z.B. "memoric".
+	//Erg.: Der Text der Spielkarte - z.B. "memoric" - ist geliefert.
 	Inhalt() string
 }

@@ -19,10 +19,13 @@ func New() *data {
 	var tisch *data
 	tisch = new(data)
 
-	spielstand := score.New() // Der Spielstand wird
+	// Ein neuer Spielstand wird erzeugt und in der Variable "spielstand" hinterlegt.
+	spielstand := score.New()
 
-	tisch.scoreSpiel = spielstand
+	// Der Spielstand wird an den Spieltisch übergeben:
+	tisch.scoreSpiel = spielstand //
 
+	// Ein neues Spielbrett (inkl. Karten mit Musik) wird erzeugt und als Teil des Spieltisch im Spielbrett gespeichert.
 	tisch.spielbrett = spielbrett.New(spielstand)
 
 	return tisch

@@ -7,11 +7,11 @@ import (
 )
 
 type data struct { // Der Spielstand/ Score besteht aus:
-	aktuellerSpieler bool // der Angabe des aktuellen Spielers, wobei false = Spieler 1 ist dran, true = Spieler 2 ist dran bedeutet
-	scoreSpieler1    int  // dem Spielstand von Spieler 1, welcher mit 0 initialisiert ist
-	scoreSpieler2    int  // dem Spielstand von Spieler 2, welcher mit 0 initialisiert ist
-	spieler1String   binding.String
-	spieler2String   binding.String
+	aktuellerSpieler bool           // der Angabe des aktuellen Spielers, wobei false = Spieler 1 ist dran, true = Spieler 2 ist dran bedeutet
+	scoreSpieler1    int            // dem Spielstand von Spieler 1, welcher mit 0 initialisiert ist
+	scoreSpieler2    int            // dem Spielstand von Spieler 2, welcher mit 0 initialisiert ist
+	spieler1String   binding.String // der Spielstand des Spielers 1 als binding.String
+	spieler2String   binding.String // der Spielstand des Spielers 2 als binding.String
 	dranIst          binding.String // zur Anzeige, wer dran ist.
 }
 
@@ -33,8 +33,8 @@ func (sc *data) GetAktuellerSpieler() bool {
 
 // Setzt die aktuellen Spielstände der zwei Spieler in Strings um.
 func (sc *data) setScoreStrings() {
-	sc.spieler1String.Set("Score: " + strconv.Itoa(sc.scoreSpieler1))
-	sc.spieler2String.Set("Score: " + strconv.Itoa(sc.scoreSpieler2))
+	sc.spieler1String.Set("Score: " + strconv.Itoa(sc.scoreSpieler1)) // Der derzeitige Spielstand des Spielers 1 wird als binding.String gespeichert.
+	sc.spieler2String.Set("Score: " + strconv.Itoa(sc.scoreSpieler2)) // Der derzeitige Spielstand des Spielers 2 wird als binding.String gespeichert.
 }
 
 // Gibt den Spielstand von Spieler 1 als String im Fyne-Paket zurück.

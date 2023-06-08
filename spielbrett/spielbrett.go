@@ -4,7 +4,7 @@ import (
 	"fyne.io/fyne/v2"
 )
 
-// Vor.: ???
+// Vor.:
 // Erg.: Eine neue Instanz des ADO Spielbrett ist geliefert.
 // func New(score score.Score) *spielbrett // *data erfüllt das Interface spielbrett
 

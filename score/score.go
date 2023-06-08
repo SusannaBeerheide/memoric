@@ -2,7 +2,7 @@ package score
 
 import "fyne.io/fyne/v2/data/binding"
 
-// Vor.:
+// Vor.: keine
 // Erg.: Eine neue Instanz des ADT Score ist geliefert.
 // func New() *data // // *data erfüllt das Interface score
 

@@ -19,33 +19,36 @@ import (
 
 // A text widget with theamed background and foreground
 type data struct {
-	widget.BaseWidget        // Inherit from BaseWidget
-	text              string // The text to display in the widget
-	offen             bool   // true = offen; false = verdeckt
-	onTapped          func()
+	widget.BaseWidget                               // Inherit from BaseWidget
+	text              string                        // The text to display in the widget
+	offen             bool                          // true = offen; false = verdeckt
+	onTapped          func()                        // Funktion, die das Anklicken der Karte registriert.
 	weg               bool                          // Karte ist verschwunden, d.h. sie wird nicht mehr angezeigt.
 	musikAbspieler    musikAbspieler.MusikAbspieler //Importierte Klasse zum Abspielen der Musik
 }
 
 func NewKarte(text string, brettFunc func()) *data { // Create a Widget and Extend (initialiase) the BaseWidget
 	w := &data{ // Create this widget with an initial text value
-		text:           text,      // Text, z.B. auf der Rückseite der Spielkarte "memoric"
-		onTapped:       brettFunc, // Aufruf der Funktion brettFunc, wenn die Karte angeklickt wird.
-		musikAbspieler: musikAbspieler.New(text),
+		text:           text,                     // Pfad zur Musikdatei wird übergeben, er könnte z.B. auf der Rückseite der Spielkarte angezeigt werden.
+		onTapped:       brettFunc,                // Aufruf der Funktion brettFunc, wenn die Karte angeklickt wird.
+		musikAbspieler: musikAbspieler.New(text), // Ein neuer "musikAbspieler" wird erzeugt und der Pfad zur Musikdatei wird hinterlegt.
 	}
 	w.ExtendBaseWidget(w) // Initialiase the BaseWidget
 	return w
 }
 
-func (w *data) Tapped(_ *fyne.PointEvent) { // Methode, die ausgeführt wird, wenn die Karte geklickt wird.
+// Methode, die ausgeführt wird, wenn die Karte geklickt wird:
+func (w *data) Tapped(_ *fyne.PointEvent) {
 	w.onTapped()
 }
 
-func (w *data) IstOffen() bool { // Methode, die zurückgibt, ob die Karte geöffnet oder geschlossen ist.
+// Methode, die zurückgibt, ob die Karte geöffnet oder geschlossen ist:
+func (w *data) IstOffen() bool {
 	return w.offen
 }
 
-func (w *data) Oeffnen() { // Methode zum Öffnen der Karte.
+// Methode zum Öffnen der Karte:
+func (w *data) Oeffnen() {
 	if w.weg || w.offen {
 		return
 	}
@@ -56,21 +59,26 @@ func (w *data) Oeffnen() { // Methode zum Öffnen der Karte.
 	w.Refresh() // Karte wird "refreshed"
 }
 
-func (w *data) Schliessen() { // Methode zum Schliessen der Karte.
+// Methode zum Schliessen der Karte:
+func (w *data) Schliessen() {
 	w.offen = false
 	w.musikAbspieler.Stoppen()
 	w.Refresh()
 }
 
+// Methode zum Stoppen der Musik:
 func (w *data) MusikStoppen() {
 	w.musikAbspieler.Stoppen()
 }
+
+// Methode, damit die Karte quasi unsichtbar, d.h. nicht mehr anklickbar, für die Spieler wird.
 func (w *data) Verschwinden() {
 	w.weg = true
 	w.offen = false
 	w.Refresh()
 }
 
+// Methode, welche den Inhalt der Karte zurück gibt.
 func (w *data) Inhalt() string {
 	return w.text
 }
@@ -104,9 +112,7 @@ func newKarteRenderer(Karte *data) *karteRenderer {
 	}
 }
 
-// The Refresh() method is called if the state of the widget changes or the
-// theme is changed
-//
+// The Refresh() method is called if the state of the widget changes or the theme is changed
 // Note: The background and foreground colours are set from the current theme
 func (r *karteRenderer) Refresh() { // Funktion, welche die Funktionalitäten der Karte aktualisieren.
 	//	fmt.Println("Refresh ist aufgerufen.")

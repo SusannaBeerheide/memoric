@@ -35,11 +35,15 @@ func New(score score.Score) *spielbrett {
 	for i := 0; i < 12; i++ {
 		fmt.Println("", i)
 		index := i
+
+		// Die Karte wird neu erzeugt. Es wird ihr der Pfad zur Musikdatei mitgegeben sowie, dass sie ausgewählt wurde.
 		k := karten.NewKarte("./AudiofilesMemoric/"+inhaltDerKarten[i],
 			func() {
 				sb.karteAusgewaehlt(index)
 			},
 		)
+
+		//Die neu erzeugte Karte wird an die i-te Stelle im Slice gelegt:
 		sb.karten[i] = k
 	}
 
@@ -63,7 +67,8 @@ func beliebigerInhalt() []string {
 		fmt.Println(file.Name())
 	}
 
-	//	buchstaben := [6]string{"A", "B", "C", "D", "E", "F"}
+	// Bevor Musik nach Anklicken der Karte abgespielt wurde, haben wir uns Buchstaben anzeigen lassen.
+	// buchstaben := [6]string{"A", "B", "C", "D", "E", "F"}
 
 	// Anlegen eines Strings, in welchem der bisherige Inhalt doppelt hinterlegt werden soll.
 	var verdoppelung []string
