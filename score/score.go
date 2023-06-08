@@ -19,6 +19,8 @@ type Score interface {
 	// Erg.: Der Spielstand von Spieler 2 als String im Fyne-Paket ist geliefert.
 	Spieler2() binding.String
 
+	WerDranIst() binding.String
+
 	// Vor.: Beide Spieler besitzen einen Punktestand.
 	// Eff.: Der Spielstand des aufrufenden Spielers ist um 1 erhöht und die Spielstände beider Spieler sind gesetzt.
 	PaarGefunden()

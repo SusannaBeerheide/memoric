@@ -36,17 +36,16 @@ func (t *data) GetFyneTisch() fyne.CanvasObject {
 	return container.NewBorder(top, nil, nil, nil, t.spielbrett.GetBrett())
 }
 
-// Die Funktion zeigt den aktuellen Spielstand auf dem Spieltisch an:
+// Die Funktion zeigt den aktuellen Spieler und Spielstand auf dem Spieltisch an:
 func (t *data) anzeigetafel() fyne.CanvasObject {
 	// In scoreX wird der Inhalt der Anzeige gespeichert:
 	score1 := widget.NewLabel("Spieler / Spielerin 1")
-	//score1.TextSize = fyne.TextSize
 	score2 := widget.NewLabel("Spieler / Spielerin 2")
-	score2.Alignment = fyne.TextAlignTrailing
+	score2.Alignment = fyne.TextAlignTrailing //rechtsbündige Ausrichtung
 	score3 := widget.NewLabelWithData(t.scoreSpiel.Spieler1())
 	score4 := widget.NewLabelWithData(t.scoreSpiel.Spieler2())
 	score4.Alignment = fyne.TextAlignTrailing
-	score5 := widget.NewLabel("Spieler / Spielerin X ist dran!")
+	score5 := widget.NewLabelWithData(t.scoreSpiel.WerDranIst()) // Anzeige, welcher Spieler dran ist
 	score5.Alignment = fyne.TextAlignCenter
 	score5.TextStyle.Bold = true
 	score6 := widget.NewLabel("")

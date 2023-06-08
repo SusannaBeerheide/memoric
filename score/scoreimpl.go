@@ -12,6 +12,7 @@ type data struct { // Der Spielstand/ Score besteht aus:
 	scoreSpieler2    int  // dem Spielstand von Spieler 2, welcher mit 0 initialisiert ist
 	spieler1String   binding.String
 	spieler2String   binding.String
+	dranIst          binding.String // zur Anzeige, wer dran ist.
 }
 
 func New() *data {
@@ -20,6 +21,8 @@ func New() *data {
 	sc.spieler1String = binding.NewString() // Erzeugen einer neuen Instanz ADT binding.String mit dem Fyne-Paket
 	sc.spieler2String = binding.NewString() // Erzeugen einer neuen Instanz ADT binding.String mit dem Fyne-Paket
 	sc.setScoreStrings()                    // Setzt die aktuellen Spielstände der zwei Spieler Strings um.
+	sc.dranIst = binding.NewString()        // Erzeugen einer neuen Instanz ADT binding.String mit dem Fyne-Paket
+	sc.setDranIstString()                   // Initialisierung der Anzeige, wer dran ist.
 	return sc
 }
 
@@ -44,6 +47,20 @@ func (sc *data) Spieler2() binding.String {
 	return sc.spieler2String
 }
 
+// Setzt die Variable dranIst auf den aktuellen Spieler.
+func (sc *data) setDranIstString() {
+	if !sc.aktuellerSpieler {
+		sc.dranIst.Set("Spieler / Spielerin 1 ist dran!")
+	} else {
+		sc.dranIst.Set("Spieler / Spielerin 2 ist dran!")
+	}
+}
+
+// Gibt einen String zurück, der angibt, wer gerade dran ist.
+func (sc *data) WerDranIst() binding.String {
+	return sc.dranIst
+}
+
 // Erhöht den Spielstand des aufrufenden Spielers um 1 und setzt beide Spielstände.
 func (sc *data) PaarGefunden() {
 	if sc.aktuellerSpieler { // Der aktuellerSpieler = true --> Spieler 2 hat die Funktion aufgerufen.
@@ -56,5 +73,6 @@ func (sc *data) PaarGefunden() {
 
 // Der nicht aktuelle Spieler wird zum aktuellen Spieler.
 func (sc *data) SpielerWechseln() {
-	sc.aktuellerSpieler = !sc.aktuellerSpieler // Der jeweils andere Spieler ist mit Spielen dran.
+	sc.aktuellerSpieler = !sc.aktuellerSpieler // Der jeweils andere Spieler ist mit dem Spielen dran.
+	sc.setDranIstString()                      // Aktualisiert die Variable dranIst
 }
