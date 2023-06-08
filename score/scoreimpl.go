@@ -17,8 +17,8 @@ type data struct { // Der Spielstand/ Score besteht aus:
 func New() *data {
 	var sc *data
 	sc = new(data)
-	sc.spieler1String = binding.NewString() // Erzeugen einer neuen Instanz ADT String mit dem Fyne-Paket
-	sc.spieler2String = binding.NewString() // Erzeugen einer neuen Instanz ADT String mit dem Fyne-Paket
+	sc.spieler1String = binding.NewString() // Erzeugen einer neuen Instanz ADT binding.String mit dem Fyne-Paket
+	sc.spieler2String = binding.NewString() // Erzeugen einer neuen Instanz ADT binding.String mit dem Fyne-Paket
 	sc.setScoreStrings()                    // Setzt die aktuellen Spielstände der zwei Spieler Strings um.
 	return sc
 }

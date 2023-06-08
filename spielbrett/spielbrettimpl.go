@@ -37,7 +37,7 @@ func New(score score.Score) *spielbrett {
 		index := i
 		k := karten.NewKarte("./AudiofilesMemoric/"+inhaltDerKarten[i],
 			func() {
-				sb.KarteAusgewaehlt(index)
+				sb.karteAusgewaehlt(index)
 			},
 		)
 		sb.karten[i] = k
@@ -124,8 +124,8 @@ func (sb *spielbrett) alleKartenSchliessen() {
 	}
 }
 
-// Die Methode "KarteAusgewaehlt" wird aufgerufen, wenn eine neue Karte durch einen Spieler ausgewählt wird.
-func (sb *spielbrett) KarteAusgewaehlt(kartennr int) {
+// Die Methode "karteAusgewaehlt" wird aufgerufen, wenn eine neue Karte durch einen Spieler ausgewählt wird.
+func (sb *spielbrett) karteAusgewaehlt(kartennr int) {
 	fmt.Println("Karte wurde ausgewählt")
 	fmt.Println("Kartennummer ist: ", kartennr)
 	// Sobald eine neue Karte ausgewählt, d.h. angeklickt wird, wird das Abspielen jeglicher Musik gestoppt.

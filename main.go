@@ -13,7 +13,7 @@ func main() {
 	a := app.New()
 	w := a.NewWindow("memoric")
 	// Festlegen der Fensterausgangsgröße
-	w.Resize(fyne.NewSize(800, 800))
+	w.Resize(fyne.NewSize(1000, 800))
 
 	// Anlegen der Variable für den Spieltisch und füllen mit dem neu erschaffenen ADO Spieltisch
 	spieltisch := spieltisch.New()
