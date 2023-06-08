@@ -106,7 +106,7 @@ func (sb *spielbrett) GetBrett() fyne.CanvasObject {
 	return container.New(layout.NewGridLayout(4), fyneKarten...)
 }
 
-func (sb *spielbrett) offeneKarten() int {
+func (sb *spielbrett) offeneKartenAnzahl() int {
 	// Anlegen der Variable Anzahl mit dem Initialisierungswert 0:
 	anzahl := 0
 	// Mit der Range-Schleife wird durch das Karten-Slice gegangen und die Anzahl der offenen Karten - offen = true - wird gezählt.
@@ -142,7 +142,7 @@ func (sb *spielbrett) karteAusgewaehlt(kartennr int) {
 	//	ausgewaehlteKarte.Verschwinden()
 
 	// Die Methode offeneKarten gibt die Anzahl der offenen Karten zurück, diese Anzahl wird in der Variable anzahlOffen gespeichert.
-	anzahlOffen := sb.offeneKarten()
+	anzahlOffen := sb.offeneKartenAnzahl()
 
 	// Überprüfen, ob die Anzahl der geöffenten Karten kleiner 2 ist. In diesem Fall kann kein Paar vorliegen, da entweder bisher keine oder bisher 1 Karte geöffnet ist.
 	// Die angeklickte Karte wird geöffnet.

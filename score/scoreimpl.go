@@ -12,7 +12,7 @@ type data struct { // Der Spielstand/ Score besteht aus:
 	scoreSpieler2    int            // dem Spielstand von Spieler 2, welcher mit 0 initialisiert ist
 	spieler1String   binding.String // der Spielstand des Spielers 1 als binding.String
 	spieler2String   binding.String // der Spielstand des Spielers 2 als binding.String
-	dranIst          binding.String // zur Anzeige, wer dran ist.
+	dranIst          binding.String // zur Anzeige, wer dran ist
 }
 
 func New() *data {
@@ -47,7 +47,7 @@ func (sc *data) Spieler2() binding.String {
 	return sc.spieler2String
 }
 
-// Setzt die Variable dranIst auf den aktuellen Spieler.
+// Setzt dranIst auf den aktuellen Spieler.
 func (sc *data) setDranIstString() {
 	if !sc.aktuellerSpieler {
 		sc.dranIst.Set("Spieler / Spielerin 1 ist dran!")
