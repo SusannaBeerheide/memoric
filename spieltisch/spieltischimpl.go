@@ -36,6 +36,7 @@ func (t *data) GetFyneTisch() fyne.CanvasObject {
 	// Die Anzeige mit den Spielständen wird in top gespeichert:
 	top := t.anzeigetafel()
 	// Der Spieltisch wird im Format "Border" angezeigt:
+	//NewBorder(top, bottom, left, right, center)
 	return container.NewBorder(top, nil, nil, nil, t.spielbrett.GetBrett())
 }
 
