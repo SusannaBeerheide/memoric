@@ -10,10 +10,13 @@ import (
 )
 
 func main() {
-	// Anlegen eines neuen Fyne-Fensters
+	// Anlegen einer Instanz der Anwendung
 	a := app.New()
+	// Schrift wird größer
 	os.Setenv("FYNE_SCALE", "1.3")
+	// Anlegen des Fensters 
 	w := a.NewWindow("memoric")
+	
 	// Festlegen der Fensterausgangsgröße
 	w.Resize(fyne.NewSize(800, 600))
 
